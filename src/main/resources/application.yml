@@ -1,0 +1,2 @@
+webclient:
+  kong-service: http://localhost:8001
