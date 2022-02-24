@@ -24,7 +24,7 @@ public class AutenticacaoService {
     public Mono<LoginResponse> verificarLogin(LoginRequest loginRequest) {
 
         return loginRepository.verificarLogin(loginRequest)
-                .map(loginEntity -> jwtService.gerarToken(loginEntity.getLogin()))
+                .flatMap(loginEntity -> jwtService.gerarToken(loginEntity.getLogin()))
                 .map(token -> LoginResponse.builder().token(token).build())
                 .switchIfEmpty(Mono.error(new BadRequestException("Autenticação não realizada para este usuário")));
     }

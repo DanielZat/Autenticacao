@@ -1,10 +1,19 @@
 package com.boasaude.autenticacao.service;
 
+import java.util.Base64;
+import java.util.Date;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import reactor.core.publisher.Mono;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @RequiredArgsConstructor
 @Service
@@ -13,10 +22,17 @@ public class JwtService {
 
     private final KongService kongService;
 
-    public String gerarToken(String login) {
+    @Value("${token.validade}")
+    private Long validadeEmMilisegundos;
 
-        var teste = kongService.criarJwtConsumidor(login);
+    public Mono<String> gerarToken(String login) {
 
-        return StringUtils.EMPTY;
+        return kongService.criarJwtConsumidor(login)
+                .map(credencialJwtResponse -> Jwts.builder()
+                        .setClaims((Claims) Jwts.claims().setSubject(login).put("iss", credencialJwtResponse.getKey()))
+                        .setIssuedAt(new Date())
+                        .setExpiration(new Date(new Date().getTime() + validadeEmMilisegundos))
+                        .signWith(SignatureAlgorithm.HS256, Base64.getEncoder().encodeToString(credencialJwtResponse.getSecret().getBytes()))
+                        .compact());
     }
 }

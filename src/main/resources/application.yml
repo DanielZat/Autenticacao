@@ -1,2 +1,5 @@
 webclient:
   kong-service: http://localhost:8001
+
+token
+  validade: 999999999
