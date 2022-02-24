@@ -11,4 +11,4 @@ webclient:
   kong-service: http://localhost:8001
 
 token:
-  validade: 999999999
+  validade: 9999999999999
