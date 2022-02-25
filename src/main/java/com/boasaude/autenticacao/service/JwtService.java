@@ -28,11 +28,18 @@ public class JwtService {
     public Mono<String> gerarToken(String login) {
 
         return kongService.criarJwtConsumidor(login)
-                .map(credencialJwtResponse -> Jwts.builder()
-                        .setClaims((Claims) Jwts.claims().setSubject(login).put("iss", credencialJwtResponse.getKey()))
-                        .setIssuedAt(new Date())
-                        .setExpiration(new Date(new Date().getTime() + validadeEmMilisegundos))
-                        .signWith(SignatureAlgorithm.HS256, Base64.getEncoder().encodeToString(credencialJwtResponse.getSecret().getBytes()))
-                        .compact());
+                .map(credencialJwtResponse -> {
+
+                    Claims claims = Jwts.claims().setSubject(login);
+                    claims.put("iss", credencialJwtResponse.getKey());
+
+                    return Jwts.builder()
+                            .setClaims(claims)
+                            .setIssuedAt(new Date())
+                            .setExpiration(new Date(new Date().getTime() + validadeEmMilisegundos))
+                            .signWith(SignatureAlgorithm.HS256, Base64.getEncoder().encodeToString(credencialJwtResponse.getSecret().getBytes()))
+                            .compact();
+
+                });
     }
 }
