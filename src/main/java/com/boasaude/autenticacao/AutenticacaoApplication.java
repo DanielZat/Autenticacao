@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@OpenAPIDefinition(info = @Info(title = "Boa Saúde - Autenticação", version = "1.0", description = "Documentação do microserviço de autenticação"))
+@OpenAPIDefinition(info = @Info(title = "Boa Saúde - Autenticação", version = "1.0", description = "Documentação do microsserviço de autenticação"))
 public class AutenticacaoApplication {
 
     public static void main(String[] args) {
