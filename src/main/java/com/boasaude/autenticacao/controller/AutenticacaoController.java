@@ -22,7 +22,7 @@ public class AutenticacaoController {
 
     private final AutenticacaoService autenticacaoService;
 
-    @PostMapping("/acesso")
+    @PostMapping()
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Autenticado realizada com sucesso", content = @Content(schema = @Schema(
                     implementation = LoginResponse.class))),
