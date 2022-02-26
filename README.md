@@ -4,6 +4,9 @@ Microsserviço de autenticação criado para utilização na POC de arquitetura 
 
 Este microsserviço tem como objetivo validar usuários e gerar token JWT para os mesmos fazendo uso do plugin JWT fornecido pelo API Gateway Kong. 
 
+
+![Endpoints de autenticação](./pictures/img.png "Swagger")
+
 ## Tecnologias utilizadas:
 
 - Java - Linguagem de programação utilizada
