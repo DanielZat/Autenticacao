@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import com.boasaude.autenticacao.entity.LoginEntity;
-import com.boasaude.autenticacao.exception.BadRequestException;
 import com.boasaude.autenticacao.request.LoginRequest;
 
 import reactor.core.publisher.Flux;
@@ -22,7 +21,6 @@ public class LoginRepository {
         return criarListaLogins()
                 .filter(associadoEntity -> loginRequest.getLogin().equals(associadoEntity.getLogin()) && loginRequest.getSenha()
                         .equals(associadoEntity.getSenha()))
-                .switchIfEmpty(Mono.error(new BadRequestException("Autenticação não realizada para este usuário")))
                 .single();
     }
 

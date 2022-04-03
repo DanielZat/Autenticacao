@@ -31,7 +31,7 @@ public class JwtService {
                 .map(credencialJwtResponse -> {
 
                     Claims claims = Jwts.claims().setSubject(login);
-                    claims.put("iss", credencialJwtResponse.getKey());
+                    claims.put("", credencialJwtResponse.getKey());
 
                     return Jwts.builder()
                             .setClaims(claims)
@@ -39,7 +39,6 @@ public class JwtService {
                             .setExpiration(new Date(new Date().getTime() + validadeEmMilisegundos))
                             .signWith(SignatureAlgorithm.HS256, Base64.getEncoder().encodeToString(credencialJwtResponse.getSecret().getBytes()))
                             .compact();
-
                 });
     }
 }
