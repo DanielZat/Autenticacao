@@ -31,7 +31,7 @@ public class JwtService {
                 .map(credencialJwtResponse -> {
 
                     Claims claims = Jwts.claims().setSubject(login);
-                    claims.put("", credencialJwtResponse.getKey());
+                    claims.put("iss", credencialJwtResponse.getKey());
 
                     return Jwts.builder()
                             .setClaims(claims)
